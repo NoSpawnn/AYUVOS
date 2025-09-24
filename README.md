@@ -1,4 +1,4 @@
-# As Yet Unnamed Void-based OS
+# As Yet Unnamed Void-based Operating System
 
-- Opinionated, batteries-included, desktop Void Linux distribution
+- Opinionated, batteries-included, desktop Void Linux based distribution
 - Built using [void-linux/void-mklive](https://github.com/void-linux/void-mklive)
