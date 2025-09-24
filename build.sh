@@ -6,6 +6,7 @@ set -euxo pipefail
 join() {
     local sep=$1
     shift
+    [ $# -eq 0 ] && return
     printf -- "$sep %s " "$@"
 }
 
@@ -48,7 +49,6 @@ BUILD_CMD=(
     $(join "-p" "${PACKAGES_INSTALL[@]}")
     $(join "-g" "${PACKAGES_REMOVE[@]}")
     $(join "-S" "${ISO_SERVICES[@]}")
-    -S "${ISO_SERVICES[@]}"
     -T "$BOOTLOADER_TITLE"
 )
 
