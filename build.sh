@@ -35,7 +35,7 @@ BUILD_CMD=(
     -e "$DEFAULT_SHELL"
     -p "${PACKAGES_INSTALL[@]}"
     -g "${PACKAGES_REMOVE[@]}"
-    -S "${ISO_SERVICES}"
+    -S "${ISO_SERVICES[@]}"
     -T "$BOOTLOADER_TITLE"
 )
 
