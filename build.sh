@@ -6,8 +6,11 @@ set -euxo pipefail
 join() {
     local sep=$1
     shift
-    [ $# -eq 0 ] && return
-    printf -- "$sep %s " "$@"
+    if [ $# -ne 0 ]; then
+        printf -- "$sep %s " "$@"
+    else
+        echo ""
+    fi
 }
 
 VOID_MKLIVE_DIR="$(dirname $(realpath $0))/void-mklive"
