@@ -22,10 +22,6 @@ ISO_SERVICES=(
     dbus
 )
 
-cd "$VOID_MKLIVE_DIR"
-
-source ./lib.sh
-
 BUILD_CMD=(
     ./mklive.sh
     -o "$ISO_NAME"
@@ -38,6 +34,10 @@ BUILD_CMD=(
     -S "${ISO_SERVICES[@]}"
     -T "$BOOTLOADER_TITLE"
 )
+
+cd "$VOID_MKLIVE_DIR"
+
+source ./lib.sh
 
 if eval ${BUILD_CMD[@]}; then
     mv "$VOID_MKLIVE_DIR/$ISO_NAME" "$OUT_DIR"
