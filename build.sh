@@ -2,6 +2,13 @@
 
 set -euxo pipefail
 
+# usage: join "<sep>" "<values>"
+join() {
+    local sep=$1
+    shift
+    printf -- "$sep %s " "$@"
+}
+
 VOID_MKLIVE_DIR="$(dirname $(realpath $0))/void-mklive"
 OUT_DIR="$VOID_MKLIVE_DIR/.."
 
@@ -13,7 +20,6 @@ BOOTLOADER_TITLE="AYUVOS"
 
 PACKAGES_INSTALL=(
     NetworkManager
-    xtools # https://github.com/leahneukirchen/xtools
 )
 PACKAGES_REMOVE=(
 )
@@ -29,8 +35,9 @@ BUILD_CMD=(
     -k "us" # TODO: make keymap dynamic (in some sense)
     -I "$INCLUDE_DIR"
     -e "$DEFAULT_SHELL"
-    -p "${PACKAGES_INSTALL[@]}"
-    -g "${PACKAGES_REMOVE[@]}"
+    $(join "-p" "${PACKAGES_INSTALL[@]}")
+    $(join "-g" "${PACKAGES_REMOVE[@]}")
+    $(join "-S" "${ISO_SERVICES[@]}")
     -S "${ISO_SERVICES[@]}"
     -T "$BOOTLOADER_TITLE"
 )
