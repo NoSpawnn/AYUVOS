@@ -19,7 +19,17 @@ DEFAULT_SHELL="/bin/bash"
 BOOTLOADER_TITLE="AYUVOS"
 
 PACKAGES_INSTALL=(
+    # Core
     NetworkManager
+    flatpak
+
+    # CLI (and utilities)
+    zsh
+    xtools # https://github.com/leahneukirchen/xtools
+    eza
+    bat
+    tealdeer
+    zoxide
 )
 PACKAGES_REMOVE=(
 )
