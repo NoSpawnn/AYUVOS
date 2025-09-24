@@ -7,7 +7,7 @@ OUT_DIR="$VOID_MKLIVE_DIR/.."
 
 ISO_NAME="ayuvos-$(date +%Y%m%d).iso"
 INCLUDE_DIR="$VOID_MKLIVE_DIR/../includedir"
-LOCALE=$(locale | sed -n 's/^LANG=//p')
+LOCALE="$(locale | sed -n 's/^LANG=//p')"
 DEFAULT_SHELL="/bin/bash"
 BOOTLOADER_TITLE="AYUVOS"
 
