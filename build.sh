@@ -32,9 +32,6 @@ PACKAGES_INSTALL=(
 PACKAGES_REMOVE=(
 )
 ISO_SERVICES=(
-    NetworkManager
-    dbus
-    elogind
 )
 
 BUILD_CMD=(
