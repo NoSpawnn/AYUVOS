@@ -119,6 +119,7 @@ build_variant() {
 
     A11Y_PKGS="espeakup void-live-audio brltty"
     PKGS="dialog cryptsetup lvm2 mdadm void-docs-browse xmirror chrony tmux NetworkManager flatpak net-tools bind-utils polkit $A11Y_PKGS $GRUB_PKGS"
+    IGNORE_PKGS="wpa_supplicant wpa_cli wpa_passphrase dhcpcd"
     FONTS="font-misc-misc terminus-font dejavu-fonts-ttf"
     WAYLAND_PKGS="$GFX_WL_PKGS $FONTS xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-kde wl-clipboard"
     XORG_PKGS="$GFX_PKGS $FONTS xorg-minimal xorg-input-drivers setxkbmap xauth orca"
@@ -149,7 +150,7 @@ build_variant() {
 
     setup_pipewire
 
-    ./mklive.sh -a "$TARGET_ARCH" -o "$IMG" -p "$PKGS" -S "$SERVICES" -I "$INCLUDEDIR" \
+    ./mklive.sh -a "$TARGET_ARCH" -o "$IMG" -p "$PKGS" -g "$IGNORE_PKGS" -S "$SERVICES" -I "$INCLUDEDIR" \
         ${KERNEL_PKG:+-v $KERNEL_PKG} ${REPO} "$@"
 
 	cleanup
