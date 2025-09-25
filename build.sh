@@ -31,6 +31,7 @@ PACKAGES_INSTALL=(
     git
     podman
     incus
+    qemu
 
     # Drivers/firmware
     mesa-dri
@@ -57,6 +58,9 @@ PACKAGES_INSTALL=(
     foot # Terminal
     Thunar # File manager (a GUI one is sometimes the only option)
     elogind
+    xdg-desktop-portal
+    xdg-desktop-portal-kde
+    xdg-desktop-portal-wlr
 )
 PACKAGES_REMOVE=(
     dhcpd
