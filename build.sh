@@ -29,6 +29,7 @@ PACKAGES_INSTALL=(
     net-tools
     base-devel
     git
+    podman
 
     # Drivers/firmware
     mesa-dri
@@ -45,6 +46,7 @@ PACKAGES_INSTALL=(
     bat
     tealdeer
     zoxide
+    just
 
     # Desktop/GUI core
     sway # DE
