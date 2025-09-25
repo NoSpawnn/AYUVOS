@@ -3,8 +3,10 @@
 - Personal (and thus opinionated) custom Void Linux build
     - Use AYUVOS or just use this repository to see how to do this yourself :)
 - Built using [void-linux/void-mklive](https://github.com/void-linux/void-mklive)
+    - That repo is pulled in using a git subtree @ [`906652a4945feccd0be85ecfaf3b6d02be5d49b8`](https://github.com/void-linux/void-mklive/commit/906652a4945feccd0be85ecfaf3b6d02be5d49b8)
 - Currently, builds **MUST** be done on an existing Void installation
     - I do plan on trying to get containerised builds working, but that's not a priority, just use a VM if you need to
+- **HUGE WIP, PROBABLY NOT CURRENTLY DAILY-DRIVABLE OR EASILY INSTALLABLE**
 
 ## Building
 
