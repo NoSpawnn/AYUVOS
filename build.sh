@@ -30,6 +30,7 @@ PACKAGES_INSTALL=(
     base-devel
     git
     podman
+    incus
 
     # Drivers/firmware
     mesa-dri
