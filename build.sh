@@ -2,17 +2,6 @@
 
 set -euxo pipefail
 
-# usage: join "<sep>" "<values>"
-join() {
-    local sep=$1
-    shift
-    if [ $# -ne 0 ]; then
-        printf -- "$sep %s " "$@"
-    else
-        echo ""
-    fi
-}
-
 VOID_MKLIVE_DIR="$(dirname $(realpath $0))/void-mklive"
 OUT_DIR="$VOID_MKLIVE_DIR/.."
 
@@ -63,7 +52,6 @@ PACKAGES_INSTALL=(
     xdg-desktop-portal-wlr
 )
 PACKAGES_REMOVE=(
-    dhcpd
 )
 ISO_SERVICES=(
     NetworkManager
@@ -78,9 +66,9 @@ BUILD_CMD=(
     -k "us" # TODO: make keymap dynamic (in some sense)
     -I "$INCLUDE_DIR"
     -e "$ISO_SHELL"
-    $(join "-p" "${PACKAGES_INSTALL[@]}")
-    $(join "-g" "${PACKAGES_REMOVE[@]}")
-    $(join "-S" "${ISO_SERVICES[@]}")
+    -p "\"${PACKAGES_INSTALL[@]}\""
+    -g "\"${PACKAGES_REMOVE[@]}\""
+    -S "\"${ISO_SERVICES[@]}\""
     -T "$BOOTLOADER_TITLE"
 )
 
