@@ -26,9 +26,21 @@ PACKAGES_INSTALL=(
     # Core
     NetworkManager
     flatpak
+    net-tools
+    base-devel
+    git
+    elogind
+
+    # Drivers/firmware
+    mesa-dri
+    vulkan-loader
+    mesa-vulkan-radeon
+    mesa-vaapi
+    mesa-vdpau
 
     # CLI (and utilities)
     zsh
+    vim
     xtools # https://github.com/leahneukirchen/xtools
     eza
     bat
@@ -36,10 +48,12 @@ PACKAGES_INSTALL=(
     zoxide
 )
 PACKAGES_REMOVE=(
+    dhcpd
 )
 ISO_SERVICES=(
     NetworkManager
     dbus
+    elogind
 )
 
 BUILD_CMD=(
