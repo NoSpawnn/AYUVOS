@@ -44,6 +44,7 @@ PACKAGES_INSTALL=(
     swaybg
     swaylock
     swayidle
+    dunst # Notification daemon
     foot # Terminal
     Thunar # File manager (a GUI one is sometimes the only option)
     elogind
