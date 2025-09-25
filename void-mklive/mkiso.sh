@@ -120,14 +120,17 @@ build_variant() {
     esac
 
     A11Y_PKGS="espeakup void-live-audio brltty"
-    PKGS="dialog cryptsetup lvm2 mdadm void-docs-browse xmirror chrony tmux acpid NetworkManager flatpak net-tools bind-utils polkit $A11Y_PKGS $GRUB_PKGS"
+    PKGS="dialog cryptsetup lvm2 mdadm void-docs-browse xmirror chrony tmux NetworkManager flatpak net-tools bind-utils polkit $A11Y_PKGS $GRUB_PKGS"
     FONTS="font-misc-misc terminus-font dejavu-fonts-ttf"
     WAYLAND_PKGS="$GFX_WL_PKGS $FONTS xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-kde wl-clipboard"
     XORG_PKGS="$GFX_PKGS $FONTS xorg-minimal xorg-input-drivers setxkbmap xauth orca"
-    SERVICES="sshd chronyd dbus acpid NetworkManager"
+    SERVICES="sshd chronyd dbus NetworkManager"
 
     case $variant in
-        base) ;; # For completeness' sake, leaving DE-less image option
+        base) # For completeness' sake, leaving DE-less image option
+            PKGS="$PKGS $WAYLAND_PKGS acpid"
+            SERVICES="$SERVICES acpid"
+        ;;
         full)
             PKGS="$PKGS $WAYLAND_PKGS sway swaylock swaybg swayidle dunst foot Thunar elogind"
             SERVICES="$SERVICES elogind"
