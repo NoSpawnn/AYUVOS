@@ -17,9 +17,9 @@ VOID_MKLIVE_DIR="$(dirname $(realpath $0))/void-mklive"
 OUT_DIR="$VOID_MKLIVE_DIR/.."
 
 ISO_NAME="ayuvos-$(date +%Y%m%d).iso"
+ISO_SHELL="/bin/bash"
 INCLUDE_DIR="$VOID_MKLIVE_DIR/../includedir"
 LOCALE="$(locale | sed -n 's/^LANG=//p')"
-DEFAULT_SHELL="/bin/bash"
 BOOTLOADER_TITLE="AYUVOS"
 
 PACKAGES_INSTALL=(
@@ -77,7 +77,7 @@ BUILD_CMD=(
     -l "$LOCALE"
     -k "us" # TODO: make keymap dynamic (in some sense)
     -I "$INCLUDE_DIR"
-    -e "$DEFAULT_SHELL"
+    -e "$ISO_SHELL"
     $(join "-p" "${PACKAGES_INSTALL[@]}")
     $(join "-g" "${PACKAGES_REMOVE[@]}")
     $(join "-S" "${ISO_SERVICES[@]}")
