@@ -51,6 +51,7 @@ PACKAGES_INSTALL=(
     xdg-desktop-portal
     xdg-desktop-portal-kde
     xdg-desktop-portal-wlr
+    wl-clipboard
 )
 PACKAGES_REMOVE=(
 )
