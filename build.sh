@@ -29,7 +29,6 @@ PACKAGES_INSTALL=(
     net-tools
     base-devel
     git
-    elogind
 
     # Drivers/firmware
     mesa-dri
@@ -46,6 +45,15 @@ PACKAGES_INSTALL=(
     bat
     tealdeer
     zoxide
+
+    # Desktop/GUI core
+    sway # DE
+    swaybg
+    swaylock
+    swayidle
+    foot # Terminal
+    Thunar # File manager (a GUI one is sometimes the only option)
+    elogind
 )
 PACKAGES_REMOVE=(
     dhcpd
