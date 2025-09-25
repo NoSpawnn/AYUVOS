@@ -99,7 +99,7 @@ build_variant() {
     case "$ARCH" in
         x86_64*|i686*)
             GRUB_PKGS="grub-i386-efi grub-x86_64-efi"
-            GFX_PKGS="xorg-video-drivers xf86-video-intel"
+            GFX_PKGS="xorg-video-drivers"
             GFX_WL_PKGS="mesa-dri"
             WANT_INSTALLER=yes
             TARGET_ARCH="$ARCH"
@@ -124,9 +124,9 @@ build_variant() {
     esac
 
     A11Y_PKGS="espeakup void-live-audio brltty"
-    PKGS="dialog cryptsetup lvm2 mdadm void-docs-browse xtools-minimal xmirror chrony tmux $A11Y_PKGS $GRUB_PKGS"
+    PKGS="dialog cryptsetup lvm2 mdadm void-docs-browse xmirror chrony tmux $A11Y_PKGS $GRUB_PKGS"
     FONTS="font-misc-misc terminus-font dejavu-fonts-ttf"
-    WAYLAND_PKGS="$GFX_WL_PKGS $FONTS orca"
+    WAYLAND_PKGS="$GFX_WL_PKGS $FONTS"
     XORG_PKGS="$GFX_PKGS $FONTS xorg-minimal xorg-input-drivers setxkbmap xauth orca"
     SERVICES="sshd chronyd"
 
@@ -177,6 +177,11 @@ build_variant() {
         lxqt)
             PKGS="$PKGS $XORG_PKGS lxqt sddm gvfs-afc gvfs-mtp gvfs-smb udisks2 firefox"
             SERVICES="$SERVICES dbus dhcpcd wpa_supplicant sddm polkitd"
+        ;;
+        sway)
+            PKGS="$PKGS $WAYLAND_PKGS swaylock swaybg swayidle NetworkManager dunst foot Thunar elogind \
+                    xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-kde wl-clipboard"
+            SERVICES="$SERVICES NetworkManager dbus elogind"
         ;;
         *)
             >&2 echo "Unknown variant $variant"

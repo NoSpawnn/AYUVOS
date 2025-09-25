@@ -38,20 +38,6 @@ PACKAGES_INSTALL=(
     tealdeer
     zoxide
     just
-
-    # Desktop/GUI core
-    sway # DE
-    swaybg
-    swaylock
-    swayidle
-    dunst # Notification daemon
-    foot # Terminal
-    Thunar # File manager (a GUI one is sometimes the only option)
-    elogind
-    xdg-desktop-portal
-    xdg-desktop-portal-kde
-    xdg-desktop-portal-wlr
-    wl-clipboard
 )
 PACKAGES_REMOVE=(
 )
@@ -62,7 +48,11 @@ ISO_SERVICES=(
 )
 
 BUILD_CMD=(
-    ./mklive.sh
+    ./mkiso.sh
+    -b "sway"
+
+    -- # mklive.sh args
+
     -o "$ISO_NAME"
     -l "$LOCALE"
     -k "us" # TODO: make keymap dynamic (in some sense)
