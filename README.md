@@ -33,4 +33,7 @@
     $ dd bs=4M if=<path/to/iso> of=/dev/<your_usb>
     ```
 
-2. Boot into the live environment, and follow the [Void Linux Installation Guide](https://docs.voidlinux.org/installation/live-images/guide.html)
+2. Boot into the live environment, then either:
+
+    1. Follow the [Void Linux Installation Guide](https://docs.voidlinux.org/installation/live-images/guide.html)
+    2. Run `void-installer` for a guided TUI-based install
