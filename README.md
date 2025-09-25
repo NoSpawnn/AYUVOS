@@ -1,6 +1,6 @@
 # As Yet Unnamed Void-based Operating System
 
-- Personal (and thus opinionated) custom Void Linux build
+- Personal (and thus opinionated) minimal (but batteries included) custom Void Linux build
     - Use AYUVOS or just use this repository to see how to do this yourself :)
 - Built using [void-linux/void-mklive](https://github.com/void-linux/void-mklive)
     - That repo is pulled in using a git subtree @ [`906652a4945feccd0be85ecfaf3b6d02be5d49b8`](https://github.com/void-linux/void-mklive/tree/906652a4945feccd0be85ecfaf3b6d02be5d49b8)
@@ -37,3 +37,9 @@
 
     1. Follow the [Void Linux Installation Guide](https://docs.voidlinux.org/installation/live-images/guide.html)
     2. Run `void-installer` for a guided TUI-based install
+
+## Changes/the "opinionated" stuff
+
+- Number of extra packages/CLI utilities pre-installed which can be seen in [build.sh](./build.sh)
+- Swap out `wpa_supplicant` for `NetworkManager`
+- SwayWM as default DE
