@@ -13,21 +13,11 @@ BOOTLOADER_TITLE="AYUVOS"
 
 PACKAGES_INSTALL=(
     # Core
-    NetworkManager
-    flatpak
-    net-tools
     base-devel
     git
     podman
     incus
     qemu
-
-    # Drivers/firmware
-    mesa-dri
-    vulkan-loader
-    mesa-vulkan-radeon
-    mesa-vaapi
-    mesa-vdpau
 
     # CLI (and utilities)
     zsh
@@ -49,7 +39,7 @@ ISO_SERVICES=(
 
 BUILD_CMD=(
     ./mkiso.sh
-    -b "sway"
+    -b "full"
 
     -- # mklive.sh args
 

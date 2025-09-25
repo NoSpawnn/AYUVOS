@@ -100,14 +100,14 @@ build_variant() {
         x86_64*|i686*)
             GRUB_PKGS="grub-i386-efi grub-x86_64-efi"
             GFX_PKGS="xorg-video-drivers"
-            GFX_WL_PKGS="mesa-dri"
+            GFX_WL_PKGS="mesa-dri vulkan-loader mesa-vulkan-radeon mesa-vaapi mesa-vdpau"
             WANT_INSTALLER=yes
             TARGET_ARCH="$ARCH"
             ;;
         aarch64*)
             GRUB_PKGS="grub-arm64-efi"
             GFX_PKGS="xorg-video-drivers"
-            GFX_WL_PKGS="mesa-dri"
+            GFX_WL_PKGS="mesa-dri vulkan-loader mesa-vulkan-radeon mesa-vaapi mesa-vdpau"
             TARGET_ARCH="$ARCH"
             ;;
         asahi*)
@@ -116,88 +116,27 @@ build_variant() {
             GFX_WL_PKGS="mesa-asahi-dri"
             KERNEL_PKG="linux-asahi"
             TARGET_ARCH="aarch64${ARCH#asahi}"
-            if [ "$variant" = xfce ]; then
-                info_msg "xfce is not supported on asahi, switching to xfce-wayland"
-                variant="xfce-wayland"
-            fi
             ;;
     esac
 
     A11Y_PKGS="espeakup void-live-audio brltty"
-    PKGS="dialog cryptsetup lvm2 mdadm void-docs-browse xmirror chrony tmux $A11Y_PKGS $GRUB_PKGS"
+    PKGS="dialog cryptsetup lvm2 mdadm void-docs-browse xmirror chrony tmux acpid NetworkManager flatpak net-tools bind-tools $A11Y_PKGS $GRUB_PKGS"
     FONTS="font-misc-misc terminus-font dejavu-fonts-ttf"
-    WAYLAND_PKGS="$GFX_WL_PKGS $FONTS"
+    WAYLAND_PKGS="$GFX_WL_PKGS $FONTS xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-kde wl-clipboard"
     XORG_PKGS="$GFX_PKGS $FONTS xorg-minimal xorg-input-drivers setxkbmap xauth orca"
-    SERVICES="sshd chronyd"
-
-    LIGHTDM_SESSION=''
+    SERVICES="sshd chronyd dbus acpid NetworkManager"
 
     case $variant in
-        base)
-            SERVICES="$SERVICES dhcpcd wpa_supplicant acpid"
-        ;;
-        enlightenment)
-            PKGS="$PKGS $XORG_PKGS lightdm lightdm-gtk-greeter enlightenment terminology udisks2 firefox"
-            SERVICES="$SERVICES acpid dhcpcd wpa_supplicant lightdm dbus polkitd"
-            LIGHTDM_SESSION=enlightenment
-        ;;
-        xfce*)
-            PKGS="$PKGS $XORG_PKGS lightdm lightdm-gtk-greeter xfce4 gnome-themes-standard gnome-keyring network-manager-applet gvfs-afc gvfs-mtp gvfs-smb udisks2 firefox xfce4-pulseaudio-plugin"
-            SERVICES="$SERVICES dbus lightdm NetworkManager polkitd"
-            LIGHTDM_SESSION=xfce
-
-            if [ "$variant" == "xfce-wayland" ]; then
-                PKGS="$PKGS $WAYLAND_PKGS labwc"
-                LIGHTDM_SESSION="xfce-wayland"
-            fi
-        ;;
-        mate)
-            PKGS="$PKGS $XORG_PKGS lightdm lightdm-gtk-greeter mate mate-extra gnome-keyring network-manager-applet gvfs-afc gvfs-mtp gvfs-smb udisks2 firefox"
-            SERVICES="$SERVICES dbus lightdm NetworkManager polkitd"
-            LIGHTDM_SESSION=mate
-        ;;
-        cinnamon)
-            PKGS="$PKGS $XORG_PKGS lightdm lightdm-gtk-greeter cinnamon gnome-keyring colord gnome-terminal gvfs-afc gvfs-mtp gvfs-smb udisks2 firefox"
-            SERVICES="$SERVICES dbus lightdm NetworkManager polkitd"
-            LIGHTDM_SESSION=cinnamon
-        ;;
-        gnome)
-            PKGS="$PKGS $XORG_PKGS gnome firefox"
-            SERVICES="$SERVICES dbus gdm NetworkManager polkitd"
-        ;;
-        kde)
-            PKGS="$PKGS $XORG_PKGS kde5 konsole firefox dolphin NetworkManager"
-            SERVICES="$SERVICES dbus NetworkManager sddm"
-        ;;
-        lxde)
-            PKGS="$PKGS $XORG_PKGS lxde lightdm lightdm-gtk-greeter gvfs-afc gvfs-mtp gvfs-smb udisks2 firefox"
-            SERVICES="$SERVICES acpid dbus dhcpcd wpa_supplicant lightdm polkitd"
-            LIGHTDM_SESSION=LXDE
-        ;;
-        lxqt)
-            PKGS="$PKGS $XORG_PKGS lxqt sddm gvfs-afc gvfs-mtp gvfs-smb udisks2 firefox"
-            SERVICES="$SERVICES dbus dhcpcd wpa_supplicant sddm polkitd"
-        ;;
-        sway)
-            PKGS="$PKGS $WAYLAND_PKGS swaylock swaybg swayidle NetworkManager dunst foot Thunar elogind \
-                    xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-kde wl-clipboard"
-            SERVICES="$SERVICES NetworkManager dbus elogind"
+        base) ;; # For completeness' sake, leaving DE-less image option
+        full)
+            PKGS="$PKGS $WAYLAND_PKGS sway swaylock swaybg swayidle dunst foot Thunar elogind"
+            SERVICES="$SERVICES elogind"
         ;;
         *)
             >&2 echo "Unknown variant $variant"
             exit 1
         ;;
     esac
-
-    if [ -n "$LIGHTDM_SESSION" ]; then
-        mkdir -p "$INCLUDEDIR"/etc/lightdm
-        echo "$LIGHTDM_SESSION" > "$INCLUDEDIR"/etc/lightdm/.session
-        # needed to show the keyboard layout menu on the login screen
-        cat <<- EOF > "$INCLUDEDIR"/etc/lightdm/lightdm-gtk-greeter.conf
-[greeter]
-indicators = ~host;~spacer;~clock;~spacer;~layout;~session;~a11y;~power
-EOF
-    fi
 
     if [ "$WANT_INSTALLER" = yes ]; then
         include_installer
@@ -207,9 +146,7 @@ EOF
         chmod 755 "$INCLUDEDIR"/usr/bin/void-installer
     fi
 
-    if [ "$variant" != base ]; then
-        setup_pipewire
-    fi
+    setup_pipewire
 
     ./mklive.sh -a "$TARGET_ARCH" -o "$IMG" -p "$PKGS" -S "$SERVICES" -I "$INCLUDEDIR" \
         ${KERNEL_PKG:+-v $KERNEL_PKG} ${REPO} "$@"
