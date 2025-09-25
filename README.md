@@ -34,7 +34,6 @@
     ```
 
 2. Boot into the live environment, then either:
-
     1. Follow the [Void Linux Installation Guide](https://docs.voidlinux.org/installation/live-images/guide.html)
     2. Run `void-installer` for a guided TUI-based install
 
@@ -46,8 +45,9 @@
 
 ## Resources/Docs/References that I've used while building this
 
-- [Void Linux Handbook](https://docs.voidlinux.org/)
-- [florintanasa/brgvos-void](https://github.com/florintanasa/brgvos-void)
+- General Void-related stuff
+    - [Void Linux Handbook](https://docs.voidlinux.org/)
+    - [florintanasa/brgvos-void](https://github.com/florintanasa/brgvos-void)
 - Getting Incus/LXC working
     - [LXC - Void Linux Handbook](https://docs.voidlinux.org/config/containers-and-vms/lxc.html#incus)
     - [Problems setting up incus : r/voidlinux](https://www.reddit.com/r/voidlinux/comments/1aqw7ou/problems_setting_up_incus/)
