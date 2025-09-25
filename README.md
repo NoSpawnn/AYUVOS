@@ -43,3 +43,11 @@
 - Number of extra packages/CLI utilities pre-installed which can be seen in [build.sh](./build.sh)
 - Swap out `wpa_supplicant` for `NetworkManager`
 - SwayWM as default DE
+
+## Resources/Docs/References that I've used while building this
+
+- [Void Linux Handbook](https://docs.voidlinux.org/)
+- [florintanasa/brgvos-void](https://github.com/florintanasa/brgvos-void)
+- Getting Incus/LXC working
+    - [LXC - Void Linux Handbook](https://docs.voidlinux.org/config/containers-and-vms/lxc.html#incus)
+    - [Problems setting up incus : r/voidlinux](https://www.reddit.com/r/voidlinux/comments/1aqw7ou/problems_setting_up_incus/)
