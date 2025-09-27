@@ -204,6 +204,16 @@ change_shell() {
     [ $? -ne 0 ] && die "Failed to change the shell for root"
 }
 
+create-xdg-runtime-dir() {
+    cat <<EOF > $ROOTFS/etc/profile.d/xdg-runtime-dir.sh
+if [ -z "\$XDG_RUNTIME_DIR"]; then
+    export XDG_RUNTIME_DIR=/tmp/\$(id -u)-runtime
+    mkdir -p \$XDG_RUNTIME_DIR
+    chmod 0700 \$XDG_RUNTIME_DIR
+fi
+EOF
+}
+
 copy_include_directories() {
     for includedir in "${INCLUDE_DIRS[@]}"; do
         info_msg "=> copying include directory '$includedir' ..."
@@ -692,6 +702,9 @@ if [ "${#INCLUDE_DIRS[@]}" -gt 0 ];then
     print_step "Copying directory structures into the rootfs ..."
     copy_include_directories
 fi
+
+print_step "Create xdg-runtime-dir.sh"
+create-xdg-runtime-dir
 
 print_step "Generating initramfs image ($INITRAMFS_COMPRESSION)..."
 generate_initramfs
