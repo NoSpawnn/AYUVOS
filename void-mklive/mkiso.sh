@@ -118,9 +118,9 @@ build_variant() {
     esac
 
     A11Y_PKGS="espeakup void-live-audio brltty"
-    PKGS="dialog cryptsetup lvm2 mdadm void-docs-browse xmirror chrony tmux NetworkManager flatpak net-tools bind-utils polkit socklog-void $A11Y_PKGS $GRUB_PKGS"
+    PKGS="dialog cryptsetup lvm2 mdadm void-docs-browse xmirror chrony tmux NetworkManager flatpak net-tools bind-utils polkit socklog-void void-repo-nonfree void-repo-multilib void-repo-multilib-nonfree curl gnupg $A11Y_PKGS $GRUB_PKGS"
     IGNORE_PKGS="wpa_supplicant wpa_cli wpa_passphrase dhcpcd"
-    FONTS="font-misc-misc terminus-font dejavu-fonts-ttf"
+    FONTS="noto-fonts-ttf noto-fonts-emoji noto-fonts-cjk"
     WAYLAND_PKGS="$GFX_WL_PKGS $FONTS xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-kde wl-clipboard"
     XORG_PKGS="$GFX_PKGS $FONTS xorg-minimal xorg-input-drivers setxkbmap xauth orca"
     SERVICES="sshd chronyd dbus NetworkManager socklog-unix nanoklogd"
@@ -131,8 +131,8 @@ build_variant() {
             SERVICES="$SERVICES acpid"
         ;;
         full)
-            PKGS="$PKGS $WAYLAND_PKGS sway swaylock swaybg swayidle dunst foot Thunar elogind"
-            SERVICES="$SERVICES elogind"
+            PKGS="$PKGS $WAYLAND_PKGS sway swaylock swaybg swayidle mako foot Thunar seatd wofi slurp grim"
+            SERVICES="$SERVICES seatd"
         ;;
         *)
             >&2 echo "Unknown variant $variant"
